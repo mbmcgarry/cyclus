@@ -1,6 +1,6 @@
 package:
   name: cyclus
-  version: 1.3.1
+  version: 0.0
 
 # Only use fn and url for polyphemus compatability
 source:
@@ -15,7 +15,7 @@ requirements:
     - libxmlpp 
     - coincbc
     - boost
-    - hdf5 <=1.8.14
+    - hdf5
     - mylibxml2 # [osx]
     - libxml2  #  [linux]
     - myglib   # [osx]  
@@ -30,7 +30,7 @@ requirements:
     - libxmlpp
     - coincbc
     - boost
-    - hdf5 <=1.8.14
+    - hdf5
     - mylibxml2 # [osx]
     - libxml2  #  [linux]
     - myglib   # [osx]  
