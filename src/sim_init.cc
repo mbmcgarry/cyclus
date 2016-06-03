@@ -75,6 +75,14 @@ void SimInit::Snapshot(Context* ctx) {
      ->AddVal("Time", ctx->time())
      ->Record();
 
+  std::stringstream ss;
+  ss << ctx->rng_generator();
+  
+  ctx->NewDatum("RNGState")
+    ->AddVal("Time", ctx->time())
+    ->AddVal("InternalData",  Blob(ss.str()))
+    ->Record();
+  
   // snapshot all agent internal state
   std::set<Agent*> mlist = ctx->agent_list_;
   std::set<Agent*>::iterator it;
@@ -150,6 +158,15 @@ void SimInit::LoadInfo() {
   std::string h = qr.GetVal<std::string>("Handle");
   QueryResult dq = b_->Query("DecayMode", NULL);
   std::string d = dq.GetVal<std::string>("Decay");
+
+  std::vector<Cond> conds;
+  conds.push_back(Cond("Time", "==", t_));
+  QueryResult rng_tb = b_->Query("RNGState", NULL);
+  std::stringstream ss;
+  std::string s = rng_tb.GetVal<Blob>("InternalData").str();
+  ss << s; 
+  ss >> ctx_->rng_generator();
+
   si_ = SimInfo(dur, y0, m0, h, d);
 
   si_.parent_sim = qr.GetVal<boost::uuids::uuid>("ParentSimId");

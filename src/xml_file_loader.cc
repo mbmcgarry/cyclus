@@ -8,6 +8,7 @@
 
 #include <boost/filesystem.hpp>
 #include <libxml++/libxml++.h>
+#include <ctime>
 
 #include "agent.h"
 #include "blob.h"
@@ -426,6 +427,14 @@ void XMLFileLoader::LoadControlParams() {
 
   // get time step duration
   si.dt = OptionalQuery<int>(qe, "dt", kDefaultTimeStepDur);
+  // get rng seed
+  int seed = OptionalQuery<int>(qe, "rng_seed", 1);
+  if (seed == 0) {
+    si.seed = time(0);
+  }
+  else {
+    si.seed = seed;
+  }
 
   ctx_->InitSim(si);
 }

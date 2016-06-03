@@ -5,6 +5,7 @@
 #include <set>
 #include <string>
 #include <stdint.h>
+#include <random>
 
 #ifndef CYCPP
 // The cyclus preprocessor cannot handle this file since there are two
@@ -85,6 +86,9 @@ class SimInfo {
   /// start month for the simulation: Jan = 1, ..., Dec = 12
   int m0;
 
+  /// random number generator seed
+  int seed;
+
   /// id for the parent simulation if any
   boost::uuids::uuid parent_sim;
 
@@ -136,6 +140,10 @@ class Context {
 
   /// See Recorder::sim_id documentation.
   boost::uuids::uuid sim_id();
+
+  /// Initialize the Random number generator
+
+  std::mt19937& rng_generator() {return rng_generator_;};
 
   /// Adds a prototype to a simulation-wide accessible list, a prototype **can
   /// not** be added more than once.
@@ -298,6 +306,8 @@ class Context {
   std::map<std::string, int> n_prototypes_;
   std::map<std::string, int> n_specs_;
 
+  std::mt19937 rng_generator_;
+  
   SimInfo si_;
   Timer* ti_;
   ExchangeSolver* solver_;

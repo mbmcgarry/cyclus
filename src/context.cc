@@ -12,12 +12,14 @@
 
 namespace cyclus {
 
+ 
 SimInfo::SimInfo()
     : duration(0),
       y0(0),
       m0(0),
       dt(kDefaultTimeStepDur),
       decay("manual"),
+      seed(1),
       branch_time(-1),
       explicit_inventory(false),
       explicit_inventory_compact(false),
@@ -30,6 +32,7 @@ SimInfo::SimInfo(int dur, int y0, int m0, std::string handle)
       m0(m0),
       dt(kDefaultTimeStepDur),
       decay("manual"),
+      seed(1),
       branch_time(-1),
       handle(handle),
       explicit_inventory(false),
@@ -43,6 +46,7 @@ SimInfo::SimInfo(int dur, int y0, int m0, std::string handle, std::string d)
       m0(m0),
       dt(kDefaultTimeStepDur),
       decay(d),
+      seed(1),
       branch_time(-1),
       handle(handle),
       explicit_inventory(false),
@@ -58,6 +62,7 @@ SimInfo::SimInfo(int dur, boost::uuids::uuid parent_sim,
       m0(-1),
       dt(kDefaultTimeStepDur),
       decay("manual"),
+      seed(1),
       parent_sim(parent_sim),
       parent_type(parent_type),
       branch_time(branch_time),
@@ -70,6 +75,7 @@ Context::Context(Timer* ti, Recorder* rec)
       rec_(rec),
       solver_(NULL),
       trans_id_(0),
+      rng_generator_(1),
       si_(0) {}
 
 Context::~Context() {
@@ -209,6 +215,12 @@ void Context::InitSim(SimInfo si) {
   NewDatum("XMLPPInfo")
       ->AddVal("LibXMLPlusPlusVersion", std::string(version::xmlpp()))
       ->Record();
+
+  NewDatum("RNGSeed")
+      ->AddVal("Seed", si.seed)
+      ->Record();
+
+  rng_generator_.seed(si.seed);
 
   si_ = si;
   ti_->Initialize(this, si);
