@@ -124,3 +124,33 @@ TEST_F(ContextTests, DoubleAgentNameThrow) {
   
   delete ctx;
 }
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+TEST_F(ContextTests, TestRNG) {
+  Timer ti;
+  Recorder rec;
+  Context ctx(&ti, &rec);
+  cyclus::SqliteBack b(":memory:");
+  rec.RegisterBackend(&b);
+  int sim_dur = 10;
+  cyclus::SimInfo info(sim_dur, 2015, 1, "", "never");
+
+  //  info.dur = 10;
+
+  std::uniform_real_distribution<double> dist;
+  dist(ctx.rng_generator());
+  dist(ctx.rng_generator());
+  dist(ctx.rng_generator());
+
+  ti.RunSim();
+  
+  SimInit si;
+  si.Restart(&b, rec.sim_id(), sim_dur);
+  Context* ctx2 = si.context();
+
+  double a;
+  EXPECT_EQ(dist(ctx2->rng_generator()), dist(ctx.rng_generator()));
+  EXPECT_EQ(dist(ctx2->rng_generator()), dist(ctx.rng_generator()));
+  EXPECT_EQ(dist(ctx2->rng_generator()), dist(ctx.rng_generator()));
+  EXPECT_EQ(dist(ctx2->rng_generator()), dist(ctx.rng_generator()));
+  EXPECT_EQ(dist(ctx2->rng_generator()), dist(ctx.rng_generator()));
+}
