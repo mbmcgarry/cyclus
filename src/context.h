@@ -86,7 +86,14 @@ class SimInfo {
   /// start month for the simulation: Jan = 1, ..., Dec = 12
   int m0;
 
-  /// random number generator seed
+  /// @brief Seed for the random number generator, using the
+  /// mersenne_twister_engine. Once defined, a RNG is generated any time
+  /// rng_generator is called. Determinism should be  preserved so long as
+  /// as any calls to the rng are in ordered stages of the DRE such as
+  /// the Tick or Tock. Restart is supported.
+  /// @param >0 defines the seed explicitly (default is 1)
+  /// @param =0 sets the RNG seed using the current time to allow for unique
+  /// simulation instances. xml_file_loader records the actual seed that is used
   int seed;
 
   /// id for the parent simulation if any
@@ -142,7 +149,7 @@ class Context {
   boost::uuids::uuid sim_id();
 
   /// Initialize the Random number generator
-
+  
   std::mt19937& rng_generator() {return rng_generator_;};
 
   /// Adds a prototype to a simulation-wide accessible list, a prototype **can
