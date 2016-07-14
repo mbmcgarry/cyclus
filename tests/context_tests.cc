@@ -2,6 +2,7 @@
 
 #include "context.h"
 #include "recorder.h"
+#include "sim_init.h"
 #include "test_agents/test_facility.h"
 #include "timer.h"
 
@@ -10,6 +11,7 @@ using cyclus::Recorder;
 using cyclus::Agent;
 using cyclus::Timer;
 using cyclus::Trader;
+using cyclus::SimInit;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 class ContextTests: public ::testing::Test {
