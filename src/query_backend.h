@@ -306,6 +306,20 @@ enum DbTypes {
   PAIR_PAIR_DOUBLE_DOUBLE_MAP_VL_STRING_DOUBLE,     // ["std::pair<std::pair<double, double>, std::map<std::string, double>>", 4, [], ["PAIR", ["PAIR", "DOUBLE", "DOUBLE"], ["MAP", "VL_STRING", "DOUBLE"]], false]
   PAIR_PAIR_DOUBLE_DOUBLE_VL_MAP_STRING_DOUBLE,     // ["std::pair<std::pair<double, double>, std::map<std::string, double>>", 4, [], ["PAIR", ["PAIR", "DOUBLE", "DOUBLE"], ["VL_MAP", "STRING", "DOUBLE"]], false]
   PAIR_PAIR_DOUBLE_DOUBLE_VL_MAP_VL_STRING_DOUBLE,  // ["std::pair<std::pair<double, double>, std::map<std::string, double>>", 4, [], ["PAIR", ["PAIR", "DOUBLE", "DOUBLE"], ["VL_MAP", "VL_STRING", "DOUBLE"]], false]
+
+
+  //map<pair<string, string>, int>
+  MAP_PAIR_STRING_STRING_INT, // ["std::map<std::pair<std::string, std::string>, int>, 4, [], ["MAP", ["PAIR", "STRING", "STRING"], "INT"], false]
+  MAP_PAIR_STRING_VL_STRING_INT, // ["std::map<std::pair<std::string, std::string>, int>, 4, [], ["MAP", ["PAIR", "STRING", "VL_STRING"], "INT"], false]
+  MAP_PAIR_VL_STRING_STRING_INT, // ["std::map<std::pair<std::string, std::string>, int>, 4, [], ["MAP", ["PAIR", "VL_STRING", "STRING"], "INT"], false]
+  MAP_PAIR_VL_STRING_VL_STRING_INT, // ["std::map<std::pair<std::string, std::string>, int>, 4, [], ["MAP", ["PAIR", "VL_STRING", "VL_STRING"], "INT"], false]
+  VL_MAP_PAIR_STRING_STRING_INT, // ["std::map<std::pair<std::string, std::string>, int>, 4, [], ["VL_MAP", ["PAIR", "STRING", "STRING"], "INT"], false]
+  VL_MAP_PAIR_STRING_VL_STRING_INT, // ["std::map<std::pair<std::string, std::string>, int>, 4, [], ["VL_MAP", ["PAIR", "STRING", "VL_STRING"], "INT"], false]
+  VL_MAP_PAIR_VL_STRING_STRING_INT, // ["std::map<std::pair<std::string, std::string>, int>, 4, [], ["VL_MAP", ["PAIR", "VL_STRING", "STRING"], "INT"], false]
+  VL_MAP_PAIR_VL_STRING_VL_STRING_INT, // ["std::map<std::pair<std::string, std::string>, int>, 4, [], ["VL_MAP", ["PAIR", "VL_STRING", "VL_STRING"], "INT"], false]
+
+
+
 };
 
 /// Represents operation codes for condition checking.
